@@ -1,1 +1,707 @@
 
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#120d1c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Ektu Kotha</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💗%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --night:#120d1c; --dusk:#1d1630; --dusk2:#2a2042; --line:#3b2f57;
+  --rose:#ff7a8a; --rose-d:#e0556a; --gold:#ffd28a; --mist:#efe6f5; --mute:#a99bc2;
+  --ok:#8fe3b0; --bad:#ff8f8f;
+  --r-lg:28px; --r-md:16px; --r-sm:10px;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Hind Siliguri',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{
+  background:radial-gradient(1200px 700px at 50% -10%,#2b1d46 0%,var(--night) 60%) fixed;
+  color:var(--mist);font-family:var(--sans);font-size:16px;line-height:1.5;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+h1,h2,h3{font-family:var(--serif);font-weight:600;margin:0}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.hidden{display:none!important}
+.wrap{max-width:560px;margin:0 auto;padding:18px 18px 110px}
+
+/* ---------- auth ---------- */
+#auth{min-height:100%;display:flex;flex-direction:column;justify-content:center}
+.brand{text-align:center;margin-bottom:26px}
+.brand .mark{display:inline-flex;gap:0;align-items:center;margin-bottom:14px}
+.orb{width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff2f4,var(--rose) 45%,var(--rose-d));box-shadow:0 0 30px 6px rgba(255,122,138,.45)}
+.orb.gold{background:radial-gradient(circle at 35% 30%,#fffbe9,var(--gold) 45%,#e0a85a);box-shadow:0 0 30px 6px rgba(255,210,138,.4);margin-left:-12px}
+.brand h1{font-size:40px;letter-spacing:-.5px}
+.brand p{color:var(--mute);margin:6px 0 0}
+.card{background:linear-gradient(180deg,var(--dusk),#181226);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px}
+.tabs{display:flex;gap:6px;background:var(--night);padding:5px;border-radius:999px;margin-bottom:16px}
+.tabs button{flex:1;background:none;border:0;padding:10px;border-radius:999px;color:var(--mute);font-weight:500}
+.tabs button.on{background:var(--dusk2);color:var(--mist)}
+label{display:block;font-size:14px;color:var(--mute);margin:12px 0 5px}
+input,textarea{width:100%;background:var(--night);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;outline:none}
+input:focus,textarea:focus{border-color:var(--rose)}
+textarea{resize:none;min-height:96px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:13px 22px;font-weight:600;background:var(--rose);color:#2a0b14}
+.btn:active{transform:scale(.97)}
+.btn.block{width:100%;margin-top:18px}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--mist)}
+.btn.small{padding:8px 14px;font-size:14px}
+.btn.gold{background:var(--gold);color:#2f1d05}
+.btn.bad{background:transparent;border:1px solid #5a3040;color:var(--bad)}
+.msg{min-height:20px;color:var(--bad);font-size:14px;margin-top:10px;text-align:center}
+.msg.ok{color:var(--ok)}
+
+/* ---------- setup warning ---------- */
+#setup{padding:24px}
+#setup code{background:var(--night);padding:2px 6px;border-radius:6px;color:var(--gold)}
+
+/* ---------- app header ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.me{display:flex;flex-direction:column}
+.me b{font-family:var(--serif);font-size:20px}
+.codechip{font-size:13px;color:var(--mute);background:var(--dusk);border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer;margin-top:4px;width:max-content}
+.codechip span{color:var(--gold);letter-spacing:2px;font-weight:600}
+.iconbtn{background:var(--dusk);border:1px solid var(--line);width:40px;height:40px;border-radius:50%;display:grid;place-items:center}
+
+.people{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;scrollbar-width:none}
+.people::-webkit-scrollbar{display:none}
+.chip{flex:none;background:var(--dusk);border:1px solid var(--line);border-radius:999px;padding:8px 16px;color:var(--mute)}
+.chip.on{background:var(--rose);color:#2a0b14;border-color:var(--rose);font-weight:600}
+.chip.add{border-style:dashed}
+
+/* ---------- the thread: two orbs ---------- */
+.thread{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:6px 0 18px}
+.thread::before{content:"";position:absolute;left:25%;right:25%;top:34px;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold));opacity:.35;border-radius:2px}
+.thread.live::before{opacity:1;box-shadow:0 0 14px var(--gold);animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{50%{opacity:.45}}
+.who{text-align:center;position:relative}
+.who .o{width:64px;height:64px;margin:0 auto 8px}
+.who .o.orb{width:64px;height:64px}
+.who.beat .o{animation:beat .9s ease-out 2}
+@keyframes beat{0%{transform:scale(1)}30%{transform:scale(1.35)}100%{transform:scale(1)}}
+.who small{display:block;color:var(--mute);font-size:13px}
+.who b{font-size:17px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#5b4d78;margin-right:5px}
+.dot.on{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+
+.thoughts{display:grid;gap:12px;margin-bottom:16px}
+.thought{border-radius:var(--r-lg);padding:18px 20px;border:1px solid var(--line);background:var(--dusk);position:relative}
+.thought.partner{background:linear-gradient(160deg,#35203f,var(--dusk));border-color:#5a3350}
+.thought .lbl{font-size:13px;color:var(--mute);margin-bottom:6px}
+.thought p{font-family:var(--serif);font-size:21px;line-height:1.4;margin:0;word-break:break-word}
+.thought p.empty{color:#7c6d98;font-style:italic;font-size:17px}
+.thought time{display:block;margin-top:10px;font-size:12px;color:var(--mute)}
+
+.counter{text-align:right;font-size:12px;color:var(--mute);margin-top:4px}
+.pulsebtn{width:100%;margin-top:14px;border:1px solid #6b3a52;background:linear-gradient(135deg,#3a1d3a,#2b1840);border-radius:var(--r-lg);padding:16px;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:600}
+.pulsebtn:active{transform:scale(.98)}
+.pulsebtn .h{font-size:24px}
+.pulsebtn.go .h{animation:beat .8s ease-out}
+.pulsecount{font-size:13px;color:var(--mute);text-align:center;margin-top:8px}
+
+/* ---------- sections ---------- */
+.panel{display:none}
+.panel.on{display:block}
+.sec{margin:22px 0 10px;font-size:22px}
+.sub{color:var(--mute);font-size:14px;margin:-6px 0 14px}
+.appt{border:1px solid var(--line);background:var(--dusk);border-radius:var(--r-md);padding:14px 16px;margin-bottom:10px}
+.appt.accepted{border-color:#3f6b57}
+.appt.declined{opacity:.55}
+.appt .when{font-family:var(--serif);font-size:19px}
+.appt .note{color:var(--mute);margin:2px 0 8px;font-size:15px}
+.appt .st{font-size:13px;margin-bottom:10px}
+.st.accepted{color:var(--ok)} .st.pending{color:var(--gold)} .st.declined{color:var(--bad)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.cd{font-size:13px;color:var(--gold)}
+.trail{border-left:2px solid var(--line);margin-left:6px;padding-left:16px}
+.trail .t{margin-bottom:16px;position:relative}
+.trail .t::before{content:"";position:absolute;left:-23px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--rose)}
+.trail .t.p::before{background:var(--gold)}
+.trail .t b{font-size:13px;color:var(--mute);font-weight:500}
+.trail .t div{font-family:var(--serif);font-size:17px}
+.empty-note{color:#7c6d98;text-align:center;padding:26px 10px}
+
+/* ---------- bottom nav ---------- */
+nav.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(18,13,28,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:8px;z-index:20}
+nav.bar button{flex:1;max-width:180px;background:none;border:0;padding:8px 6px;border-radius:14px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px}
+nav.bar button .e{font-size:20px}
+nav.bar button.on{background:var(--dusk2);color:var(--mist)}
+
+/* ---------- alarm overlay ---------- */
+#alarm{position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 40%,#4a1f45,#120d1c 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px}
+#alarm .big{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff2f4,var(--rose) 45%,var(--rose-d));box-shadow:0 0 80px 20px rgba(255,122,138,.5);animation:beat 1.2s ease-in-out infinite;margin-bottom:28px}
+#alarm h2{font-size:34px;margin-bottom:8px}
+#alarm p{color:var(--mute);max-width:320px;margin:0 0 26px}
+
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--mist);color:#241636;padding:10px 18px;border-radius:999px;font-weight:500;z-index:60;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:90%;text-align:center}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ============ SETUP WARNING (shown until Firebase config is pasted) ============ -->
+<div id="setup" class="wrap hidden">
+  <div class="card">
+    <h2>Firebase config ekhono dewa hoyni</h2>
+    <p>Ei file er <code>firebaseConfig</code> object e tomar Firebase project er config paste koro (script er ekdom upore ache). Tarpor page reload koro.</p>
+  </div>
+</div>
+
+<!-- ============ AUTH ============ -->
+<div id="auth" class="wrap hidden">
+  <div class="brand">
+    <div class="mark"><div class="orb"></div><div class="orb gold"></div></div>
+    <h1>Ektu Kotha</h1>
+    <p>Jar kotha 24 ghonta mone pore, tar jonno ekta chhoto ghor.</p>
+  </div>
+  <div class="card">
+    <div class="tabs">
+      <button id="tabLogin" class="on" type="button">Login</button>
+      <button id="tabSignup" type="button">Notun account</button>
+    </div>
+    <div id="signupOnly" class="hidden">
+      <label for="name">Tomar naam</label>
+      <input id="name" autocomplete="name" placeholder="Jemon: Rahim">
+      <label for="phone">Phone number (optional, SMS er jonno)</label>
+      <input id="phone" type="tel" autocomplete="tel" placeholder="+8801XXXXXXXXX">
+    </div>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="email">
+    <label for="pass">Password</label>
+    <input id="pass" type="password" autocomplete="current-password" placeholder="kom pokkhe 6 okkhor">
+    <button id="authBtn" class="btn block" type="button">Login koro</button>
+    <div id="authMsg" class="msg" role="alert"></div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app" class="hidden">
+  <div class="wrap">
+    <div class="top">
+      <div class="me">
+        <b id="meName">...</b>
+        <div class="codechip" id="codeChip" title="Copy koro">Amar code: <span id="meCode">------</span></div>
+      </div>
+      <div class="row">
+        <button class="iconbtn" id="bellBtn" title="Notification chalu koro" aria-label="Notification">🔔</button>
+        <button class="iconbtn" id="outBtn" title="Logout" aria-label="Logout">⎋</button>
+      </div>
+    </div>
+
+    <div class="people" id="people"></div>
+
+    <!-- no partner yet -->
+    <div id="noPair" class="card hidden">
+      <h2 style="margin-bottom:6px">Tomar manush ke jora</h2>
+      <p class="sub" style="margin-top:0">Tar "Amar code" ta chaw, ekhane lekho. Tumi tar code dile o hobe.</p>
+      <input id="codeIn" placeholder="6 okkhorer code" maxlength="6" style="text-transform:uppercase;letter-spacing:3px;text-align:center">
+      <button class="btn block" id="linkBtn" type="button">Jure jao</button>
+      <div class="msg" id="linkMsg"></div>
+    </div>
+
+    <!-- pair view -->
+    <div id="pairView" class="hidden">
+      <div class="thread" id="thread">
+        <div class="who" id="whoMe"><div class="orb o"></div><b>Tumi</b><small><span class="dot on"></span>ekhane</small></div>
+        <div class="who" id="whoThem"><div class="orb gold o"></div><b id="themName">—</b><small id="themStatus"><span class="dot"></span>offline</small></div>
+      </div>
+
+      <!-- TAB 1: thoughts -->
+      <section class="panel on" id="p-thought">
+        <div class="thoughts">
+          <div class="thought partner">
+            <div class="lbl" id="themLbl">Tar chinta</div>
+            <p id="themThought" class="empty">Ekhono kichu bole ni…</p>
+            <time id="themTime"></time>
+          </div>
+          <div class="thought">
+            <div class="lbl">Tomar chinta</div>
+            <p id="myThought" class="empty">Tumi ekhono kichu bolo ni…</p>
+            <time id="myTime"></time>
+          </div>
+        </div>
+
+        <label for="thoughtIn" style="margin-top:0">Ekhon ki vabcho?</label>
+        <textarea id="thoughtIn" maxlength="280" placeholder="Ek kothay lekho. Eta tomar ekta chinta hishebe thakbe, notun likhle ager ta trail e chole jabe."></textarea>
+        <div class="counter"><span id="cnt">0</span>/280</div>
+        <button class="btn block" id="shareBtn" type="button">Chinta ta pathao</button>
+
+        <button class="pulsebtn" id="pulseBtn" type="button"><span class="h">💗</span><span>Tomar kotha mone porche</span></button>
+        <div class="pulsecount" id="pulseCount"></div>
+      </section>
+
+      <!-- TAB 2: appointments -->
+      <section class="panel" id="p-talk">
+        <h3 class="sec" style="margin-top:6px">Kotha bolar somoy thik koro</h3>
+        <p class="sub">Somoy dao. Se "haan" bolle duijoner kache ei somoy e reminder jabe.</p>
+        <div class="card">
+          <label for="apAt" style="margin-top:0">Kokhon?</label>
+          <input id="apAt" type="datetime-local">
+          <label for="apNote">Ki niye kotha?</label>
+          <input id="apNote" maxlength="80" placeholder="Jemon: raater call, khub mon kharap">
+          <button class="btn block" id="apBtn" type="button">Somoy chaiye pathao</button>
+          <div class="msg" id="apMsg"></div>
+        </div>
+        <h3 class="sec">Tomader somoy gulo</h3>
+        <div id="apList"></div>
+      </section>
+
+      <!-- TAB 3: trail -->
+      <section class="panel" id="p-trail">
+        <h3 class="sec" style="margin-top:6px">Chintar trail</h3>
+        <p class="sub">Duijoner shob chinta, somoy onujayi.</p>
+        <div class="trail" id="trail"></div>
+        <div class="empty-note hidden" id="trailEmpty">Ekhono kono chinta nai.</div>
+      </section>
+    </div>
+  </div>
+
+  <nav class="bar" id="bar">
+    <button data-p="p-thought" class="on"><span class="e">💭</span>Chinta</button>
+    <button data-p="p-talk"><span class="e">🕯️</span>Kotha</button>
+    <button data-p="p-trail"><span class="e">🧵</span>Trail</button>
+  </nav>
+</div>
+
+<!-- ============ ALARM ============ -->
+<div id="alarm" class="hidden" role="alertdialog" aria-live="assertive">
+  <div class="big"></div>
+  <h2 id="alarmT">Ekhon kotha bolar somoy</h2>
+  <p id="alarmP"></p>
+  <div class="row" style="justify-content:center">
+    <a id="alarmSms" class="btn ghost hidden" href="#">SMS pathao</a>
+    <button class="btn gold" id="alarmOk" type="button">Thik ache</button>
+  </div>
+</div>
+
+<script type="module">
+/* =====================================================================
+   1) FIREBASE CONFIG  ->  Firebase Console > Project settings > Your apps > Web app
+   ===================================================================== */
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBYrE3vZ1hhf24xSas0l5qOHOztptd88vo",
+  authDomain: "shii-e5a45.firebaseapp.com",
+  projectId: "shii-e5a45",
+  storageBucket: "shii-e5a45.firebasestorage.app",
+  messagingSenderId: "737231065638",
+  appId: "1:737231065638:web:2cbc61191f2b260191cce7",
+  measurementId: "G-PSBNMSSSJC"
+};;
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initializeFirestore, getFirestore, persistentLocalCache, persistentMultipleTabManager, doc, setDoc, getDoc, getDocs, query, where, collection,
+  onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp, orderBy, limit, increment }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const $ = id => document.getElementById(id);
+const show = (el, on = true) => el.classList.toggle("hidden", !on);
+
+if (firebaseConfig.apiKey.startsWith("PASTE")) { show($("setup")); throw new Error("Firebase config missing"); }
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+let db;
+try { db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) }); }
+catch (e) { console.warn("Offline cache chalu kora gelo na, normal mode e cholche", e); db = getFirestore(app); }
+
+/* ---------- PWA: manifest (inline) + optional service worker ---------- */
+(function pwa(){
+  const icon = "data:image/svg+xml," + encodeURIComponent(
+    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='#120d1c'/><circle cx='200' cy='256' r='110' fill='#ff7a8a'/><circle cx='320' cy='256' r='110' fill='#ffd28a' fill-opacity='.9'/></svg>");
+  const manifest = {
+    name: "Ektu Kotha", short_name: "Ektu Kotha", start_url: location.pathname, scope: location.pathname.replace(/[^/]*$/, ""),
+    display: "standalone", background_color: "#120d1c", theme_color: "#120d1c",
+    icons: [{ src: icon, sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }]
+  };
+  const l = document.createElement("link"); l.rel = "manifest";
+  l.href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], { type: "application/manifest+json" }));
+  document.head.appendChild(l);
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+})();
+
+/* ---------- helpers ---------- */
+const store = { get:k=>{try{return localStorage.getItem(k)}catch{return null}}, set:(k,v)=>{try{localStorage.setItem(k,v)}catch{}} };
+function toast(t){ const d=document.createElement("div"); d.id="toast"; d.textContent=t; document.body.appendChild(d); setTimeout(()=>d.remove(),2600); }
+const fmtWhen = ms => new Date(ms).toLocaleString("en-GB",{weekday:"short",day:"numeric",month:"short",hour:"numeric",minute:"2-digit",hour12:true});
+const fmtAgo = ms => { if(!ms) return ""; const s=(Date.now()-ms)/1000;
+  if(s<60) return "ekhuni"; if(s<3600) return Math.floor(s/60)+" min age"; if(s<86400) return Math.floor(s/3600)+" ghonta age";
+  return new Date(ms).toLocaleDateString("en-GB",{day:"numeric",month:"short"}); };
+const tsMs = t => t && t.toMillis ? t.toMillis() : (typeof t === "number" ? t : 0);
+const genCode = () => { const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s=""; for(let i=0;i<6;i++) s+=c[Math.floor(Math.random()*c.length)]; return s; };
+const pairIdOf = (a,b) => [a,b].sort().join("_");
+const errBn = e => ({
+  "auth/invalid-credential":"Email ba password thik nai.","auth/invalid-email":"Email ta thik moto lekho.",
+  "auth/email-already-in-use":"Ei email diye account ache, login koro.","auth/weak-password":"Password kom pokkhe 6 okkhor hote hobe.",
+  "auth/too-many-requests":"Onek bar chesta hoyeche, ektu pore abar koro.","auth/network-request-failed":"Internet nai.",
+  "auth/operation-not-allowed":"Firebase Console > Authentication > Sign-in method e Email/Password chalu koro.",
+  "auth/unauthorized-domain":"Firebase Console > Authentication > Settings > Authorized domains e ei domain add koro.",
+  "permission-denied":"Firestore rules e problem. Console > Firestore > Rules e rules paste kore Publish koro (ar Firestore Database create kora ache kina dekho).",
+  "unavailable":"Firestore er sathe connect hocche na. Internet dekho ar Firestore Database create kora ache kina check koro.",
+  "failed-precondition":"Firestore Database ekhono create kora hoyni. Console > Firestore Database > Create database koro."
+}[e.code] || ("Somossa: " + (e.code || e.message)));
+
+/* ---------- state ---------- */
+let me = null, myDoc = null;
+let pairs = [];                    // [{id, partnerUid, ...}]
+const partners = {};               // uid -> user doc data
+let curPair = null;
+let unsubPairs = null, unsubThoughts = null, unsubLog = null, unsubPartner = null;
+const apptUnsubs = {};             // pairId -> unsub
+const apptsByPair = {};            // pairId -> [{id,...}]
+let lastPulseSeen = {};            // pairId -> ms
+let booted = false;
+
+/* =====================================================================
+   AUTH UI
+   ===================================================================== */
+let mode = "login";
+let signupGate = null;
+function setMode(m){
+  mode = m;
+  $("tabLogin").classList.toggle("on", m==="login"); $("tabSignup").classList.toggle("on", m==="signup");
+  show($("signupOnly"), m==="signup");
+  $("authBtn").textContent = m==="login" ? "Login koro" : "Account banao";
+  $("pass").autocomplete = m==="login" ? "current-password" : "new-password";
+  $("authMsg").textContent = "";
+}
+$("tabLogin").onclick = () => setMode("login");
+$("tabSignup").onclick = () => setMode("signup");
+
+$("authBtn").onclick = async () => {
+  const email = $("email").value.trim(), pass = $("pass").value, msg = $("authMsg");
+  msg.textContent = ""; msg.className = "msg";
+  if(!email || !pass){ msg.textContent = "Email ar password dao."; return; }
+  $("authBtn").disabled = true;
+  try{
+    if(mode==="signup"){
+      const name = $("name").value.trim();
+      if(!name){ msg.textContent = "Tomar naam lekho."; return; }
+      let release; signupGate = new Promise(r => release = r);
+      try{
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateProfile(cred.user, { displayName: name });
+        await setDoc(doc(db,"users",cred.user.uid), {
+          name, phone: $("phone").value.trim(), code: genCode(), createdAt: serverTimestamp(), lastSeen: Date.now()
+        });
+      } finally { release(); signupGate = null; }
+    } else {
+      await signInWithEmailAndPassword(auth, email, pass);
+    }
+  }catch(e){ msg.textContent = errBn(e); }
+  finally{ $("authBtn").disabled = false; }
+};
+$("pass").addEventListener("keydown", e => { if(e.key==="Enter") $("authBtn").click(); });
+$("outBtn").onclick = () => signOut(auth);
+
+onAuthStateChanged(auth, async user => {
+  if(!user){ teardown(); show($("app"),false); show($("auth"),true); return; }
+  me = user;
+  try{
+    if(signupGate) await signupGate;               // signup shesh hote dao, tarpor user doc pori
+    let snap = await getDoc(doc(db,"users",user.uid));
+    if(!snap.exists()){
+      await setDoc(doc(db,"users",user.uid), { name:user.displayName||"Ami", phone:"", code:genCode(), createdAt:serverTimestamp(), lastSeen:Date.now() }, { merge:true });
+      snap = await getDoc(doc(db,"users",user.uid));
+    }
+    myDoc = snap.data();
+    $("meName").textContent = myDoc.name; $("meCode").textContent = myDoc.code;
+    show($("auth"),false); show($("app"),true);
+    startApp();
+  }catch(e){
+    console.error(e);
+    show($("app"),false); show($("auth"),true);
+    const m = $("authMsg"); m.className = "msg"; m.textContent = errBn(e);
+    signOut(auth).catch(()=>{});
+  }
+});
+
+$("codeChip").onclick = async () => {
+  try{ await navigator.clipboard.writeText(myDoc.code); toast("Code copy hoyeche"); }catch{ toast("Code: "+myDoc.code); }
+};
+
+/* =====================================================================
+   APP
+   ===================================================================== */
+function teardown(){
+  [unsubPairs, unsubThoughts, unsubLog, unsubPartner].forEach(u=>u&&u());
+  unsubPairs=unsubThoughts=unsubLog=unsubPartner=null;
+  Object.values(apptUnsubs).forEach(u=>u()); for(const k in apptUnsubs) delete apptUnsubs[k];
+  for(const k in apptsByPair) delete apptsByPair[k];
+  pairs=[]; curPair=null; booted=false; clearInterval(hb); clearInterval(sched);
+}
+
+let hb, sched;
+function beatNow(){ if(me) updateDoc(doc(db,"users",me.uid),{ lastSeen: Date.now() }).catch(()=>{}); }
+document.addEventListener("visibilitychange", () => { if(!document.hidden) beatNow(); });
+function startApp(){
+  teardown();
+  const beat = beatNow;
+  beat(); hb = setInterval(beat, 40000);
+  sched = setInterval(checkReminders, 10000);
+
+  unsubPairs = onSnapshot(query(collection(db,"pairs"), where("members","array-contains",me.uid)), async snap => {
+    pairs = snap.docs.map(d => ({ id:d.id, ...d.data() })).map(p => ({ ...p, partnerUid: p.members.find(m=>m!==me.uid) }));
+    await Promise.all(pairs.map(async p => { if(!partners[p.partnerUid]){ const s = await getDoc(doc(db,"users",p.partnerUid)); partners[p.partnerUid] = s.exists()?s.data():{name:"?"}; } }));
+    pairs.forEach(watchAppts);
+    pairs.forEach(detectPulse);
+    renderPeople();
+    if(!curPair || !pairs.find(p=>p.id===curPair)) selectPair(pairs.length ? (store.get("lastPair") && pairs.find(p=>p.id===store.get("lastPair")) ? store.get("lastPair") : pairs[0].id) : null);
+    else renderPulse();
+    booted = true;
+  }, e => { console.error(e); toast(errBn(e)); });
+}
+
+function renderPeople(){
+  const box = $("people"); box.innerHTML = "";
+  pairs.forEach(p => {
+    const b = document.createElement("button"); b.className = "chip" + (p.id===curPair ? " on":"");
+    b.textContent = (partners[p.partnerUid]||{}).name || "?"; b.onclick = () => selectPair(p.id); box.appendChild(b);
+  });
+  const add = document.createElement("button"); add.className="chip add"; add.textContent="+ Notun manush";
+  add.onclick = () => { curPair=null; unwatch(); show($("pairView"),false); show($("noPair"),true); renderPeople(); };
+  box.appendChild(add);
+}
+
+$("linkBtn").onclick = async () => {
+  const code = $("codeIn").value.trim().toUpperCase(), msg = $("linkMsg"); msg.textContent=""; msg.className="msg";
+  if(code.length!==6){ msg.textContent="6 okkhorer code lekho."; return; }
+  if(code===myDoc.code){ msg.textContent="Eta tomar nijer code."; return; }
+  try{
+    const res = await getDocs(query(collection(db,"users"), where("code","==",code), limit(1)));
+    if(res.empty){ msg.textContent="Ei code e kauke pawa jay ni."; return; }
+    const other = res.docs[0].id; const pid = pairIdOf(me.uid, other);
+    await setDoc(doc(db,"pairs",pid), { members:[me.uid, other], createdAt: serverTimestamp() }, { merge:true });
+    $("codeIn").value=""; msg.className="msg ok"; msg.textContent="Jure gele ❤️";
+    store.set("lastPair", pid); curPair = null;
+  }catch(e){ msg.textContent = "Somossa: "+(e.code||e.message); }
+};
+
+function unwatch(){
+  [unsubThoughts, unsubLog, unsubPartner].forEach(u=>u&&u()); unsubThoughts=unsubLog=unsubPartner=null;
+}
+
+function selectPair(pid){
+  unwatch(); curPair = pid;
+  if(!pid){ show($("pairView"),false); show($("noPair"),true); renderPeople(); return; }
+  store.set("lastPair", pid);
+  show($("noPair"),false); show($("pairView"),true); renderPeople();
+  const p = pairs.find(x=>x.id===pid); const pu = p.partnerUid; const pd = partners[pu]||{};
+  $("themName").textContent = pd.name||"?"; $("themLbl").textContent = (pd.name||"Tar")+" er chinta";
+  ["myThought","themThought"].forEach(i=>{ $(i).className="empty"; }); $("myThought").textContent="Tumi ekhono kichu bolo ni…"; $("themThought").textContent="Ekhono kichu bole ni…";
+  $("myTime").textContent=""; $("themTime").textContent="";
+
+  unsubPartner = onSnapshot(doc(db,"users",pu), s => {
+    if(!s.exists()) return; partners[pu]=s.data();
+    const on = Date.now()-(s.data().lastSeen||0) < 90000;
+    $("themStatus").innerHTML = `<span class="dot ${on?"on":""}"></span>${on?"ekhane ache":"offline"}`;
+    $("thread").classList.toggle("live", on);
+  });
+
+  unsubThoughts = onSnapshot(collection(db,"pairs",pid,"thoughts"), snap => {
+    snap.docChanges().forEach(ch => {
+      const d = ch.doc.data(), mine = ch.doc.id===me.uid;
+      const p = $(mine?"myThought":"themThought"), t = $(mine?"myTime":"themTime");
+      p.textContent = d.text; p.className=""; t.textContent = fmtAgo(tsMs(d.updatedAt));
+      if(!mine && booted && ch.type==="modified" && !ch.doc.metadata.hasPendingWrites){ beatOrb(); notify((partners[pu].name||"Se")+" ekta chinta pathalo", d.text); }
+    });
+  });
+
+  unsubLog = onSnapshot(query(collection(db,"pairs",pid,"log"), orderBy("createdAt","desc"), limit(40)), snap => {
+    const box = $("trail"); box.innerHTML="";
+    show($("trailEmpty"), snap.empty);
+    snap.docs.forEach(d => {
+      const x = d.data(), mine = x.by===me.uid;
+      const row = document.createElement("div"); row.className = "t "+(mine?"":"p");
+      const b = document.createElement("b"); b.textContent = (mine?"Tumi":(partners[pu].name||"Se")) + " · " + fmtAgo(tsMs(x.createdAt)||Date.now());
+      const t = document.createElement("div"); t.textContent = x.text;
+      row.append(b,t); box.appendChild(row);
+    });
+  });
+  renderAppts(); renderPulse();
+}
+
+function beatOrb(){ const w=$("whoThem"); w.classList.remove("beat"); void w.offsetWidth; w.classList.add("beat"); }
+
+/* ---------- thoughts ---------- */
+$("thoughtIn").addEventListener("input", e => $("cnt").textContent = e.target.value.length);
+$("shareBtn").onclick = async () => {
+  const text = $("thoughtIn").value.trim(); if(!text || !curPair) return;
+  $("shareBtn").disabled = true;
+  try{
+    await setDoc(doc(db,"pairs",curPair,"thoughts",me.uid), { text, updatedAt: serverTimestamp() });
+    await addDoc(collection(db,"pairs",curPair,"log"), { by: me.uid, text, createdAt: serverTimestamp() });
+    $("thoughtIn").value=""; $("cnt").textContent="0"; toast("Chinta pathano hoyeche");
+  }catch(e){ toast("Pathano gelo na: "+(e.code||e.message)); }
+  finally{ $("shareBtn").disabled=false; }
+};
+
+/* ---------- "I miss you" pulse ---------- */
+$("pulseBtn").onclick = async () => {
+  if(!curPair) return;
+  const b=$("pulseBtn"); b.classList.remove("go"); void b.offsetWidth; b.classList.add("go");
+  if(navigator.vibrate) navigator.vibrate([60,60,120]);
+  try{ await updateDoc(doc(db,"pairs",curPair), { ["pulse."+me.uid+".at"]: Date.now(), ["pulse."+me.uid+".n"]: increment(1) }); }
+  catch(e){ toast("Pathano gelo na"); }
+};
+function detectPulse(p){
+  const pu = p.partnerUid, x = p.pulse && p.pulse[pu];
+  if(!x) return;
+  const prev = lastPulseSeen[p.id];
+  lastPulseSeen[p.id] = x.at;
+  if(prev !== undefined && x.at > prev){
+    const nm = (partners[pu]||{}).name || "Se";
+    if(p.id===curPair) beatOrb();
+    notify(nm+" tomake mone korche 💗", "Ekhuni ekta chinta pathao ba kotha bolo."); if(navigator.vibrate) navigator.vibrate([200,100,200]);
+  }
+}
+function renderPulse(){
+  const p = pairs.find(x=>x.id===curPair); if(!p) return;
+  const mine = (p.pulse&&p.pulse[me.uid]||{}).n||0, theirs=(p.pulse&&p.pulse[p.partnerUid]||{}).n||0;
+  $("pulseCount").textContent = `Tumi ${mine} bar, ${(partners[p.partnerUid]||{}).name||"se"} ${theirs} bar mone koreche`;
+}
+
+/* =====================================================================
+   APPOINTMENTS
+   ===================================================================== */
+function watchAppts(p){
+  if(apptUnsubs[p.id]) return;
+  apptUnsubs[p.id] = onSnapshot(collection(db,"pairs",p.id,"appointments"), snap => {
+    const old = apptsByPair[p.id] || [];
+    apptsByPair[p.id] = snap.docs.map(d=>({ id:d.id, pairId:p.id, ...d.data() }));
+    if(booted) apptsByPair[p.id].forEach(a => {
+      const was = old.find(o=>o.id===a.id), nm=(partners[p.partnerUid]||{}).name||"Se";
+      if(!was && a.by!==me.uid && a.status==="pending") notify(nm+" kotha bolte chay", fmtWhen(a.at)+(a.note?" · "+a.note:""));
+      if(was && was.status!==a.status && a.by===me.uid) notify(nm+(a.status==="accepted"?" raji hoyeche 🎉":" pare somoy dibe"), fmtWhen(a.at));
+    });
+    if(p.id===curPair) renderAppts();
+  });
+}
+
+$("apBtn").onclick = async () => {
+  const v = $("apAt").value, msg=$("apMsg"); msg.className="msg"; msg.textContent="";
+  if(!v){ msg.textContent="Somoy bachai koro."; return; }
+  const at = new Date(v).getTime();
+  if(at < Date.now()+60000){ msg.textContent="Bhobishyot er somoy dao."; return; }
+  try{
+    await addDoc(collection(db,"pairs",curPair,"appointments"), { by:me.uid, at, note:$("apNote").value.trim(), status:"pending", createdAt:serverTimestamp() });
+    $("apAt").value=""; $("apNote").value=""; msg.className="msg ok"; msg.textContent="Somoy pathano hoyeche. Se raji holei confirm.";
+  }catch(e){ msg.textContent="Somossa: "+(e.code||e.message); }
+};
+
+function renderAppts(){
+  const box = $("apList"); box.innerHTML="";
+  const list = (apptsByPair[curPair]||[]).filter(a => a.status!=="declined" || a.at>Date.now()).sort((a,b)=>a.at-b.at);
+  if(!list.length){ box.innerHTML='<div class="empty-note">Ekhono kono somoy thik hoy ni.</div>'; return; }
+  const p = pairs.find(x=>x.id===curPair), pd = partners[p.partnerUid]||{};
+  list.forEach(a => {
+    const mine = a.by===me.uid, past = a.at < Date.now()-600000;
+    const el = document.createElement("div"); el.className = "appt "+a.status;
+    const w = document.createElement("div"); w.className="when"; w.textContent = fmtWhen(a.at);
+    const n = document.createElement("div"); n.className="note"; n.textContent = a.note || "Kotha bolbo";
+    const s = document.createElement("div"); s.className="st "+a.status;
+    s.textContent = a.status==="accepted" ? "Confirmed ✓" : a.status==="declined" ? "Raji na" : (mine ? "Se ekhono uttor dey ni" : "Tomar uttor dorkar");
+    el.append(w,n,s);
+    const row = document.createElement("div"); row.className="row";
+    const btn = (t,cls,fn) => { const b=document.createElement("button"); b.className="btn small "+cls; b.textContent=t; b.onclick=fn; row.appendChild(b); };
+    if(a.status==="pending" && !mine){
+      btn("Haan, ashbo","", () => updateDoc(doc(db,"pairs",a.pairId,"appointments",a.id),{status:"accepted"}));
+      btn("Na","bad", () => updateDoc(doc(db,"pairs",a.pairId,"appointments",a.id),{status:"declined"}));
+    }
+    if(a.status==="accepted" && !past){
+      btn("Calendar e rakho","ghost", () => downloadIcs(a, pd.name));
+      if(pd.phone) btn("SMS pathao","ghost", () => { location.href = "sms:"+pd.phone+"?&body="+encodeURIComponent("Amader kotha bolar somoy: "+fmtWhen(a.at)+" 💗"); });
+    }
+    if(mine && a.status!=="accepted") btn("Batil","bad", () => deleteDoc(doc(db,"pairs",a.pairId,"appointments",a.id)));
+    if(mine && a.status==="accepted") btn("Batil","bad", () => { if(confirm("Ei somoy ta batil korbe?")) deleteDoc(doc(db,"pairs",a.pairId,"appointments",a.id)); });
+    if(row.children.length) el.appendChild(row);
+    box.appendChild(el);
+  });
+}
+setInterval(() => { if(curPair && $("p-talk").classList.contains("on")) renderAppts(); }, 60000);
+
+function downloadIcs(a, name){
+  const z = ms => new Date(ms).toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+  const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//EktuKotha//BN","BEGIN:VEVENT","UID:"+a.id+"@ektukotha",
+    "DTSTAMP:"+z(Date.now()),"DTSTART:"+z(a.at),"DTEND:"+z(a.at+30*60000),
+    "SUMMARY:💗 "+(name||"Tomar manush")+" er sathe kotha","DESCRIPTION:"+(a.note||""),
+    "BEGIN:VALARM","TRIGGER:-PT5M","ACTION:DISPLAY","DESCRIPTION:Kotha bolar somoy hoye elo","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const l = document.createElement("a"); l.href = URL.createObjectURL(new Blob([ics],{type:"text/calendar"})); l.download="ektu-kotha.ics"; l.click();
+}
+
+/* ---------- reminders ---------- */
+function checkReminders(){
+  const now = Date.now(); const done = JSON.parse(store.get("done")||"{}");
+  let changed=false;
+  Object.entries(apptsByPair).forEach(([pid,list]) => list.forEach(a => {
+    if(a.status!=="accepted") return;
+    const p = pairs.find(x=>x.id===pid); const nm=(partners[p?.partnerUid]||{}).name||"Tomar manush";
+    const kPre=a.id+"-pre", kNow=a.id+"-now";
+    if(now>=a.at-5*60000 && now<a.at && !done[kPre]){ done[kPre]=1; changed=true; notify("5 minute pore "+nm+" er sathe kotha", fmtWhen(a.at)); }
+    if(now>=a.at && now<a.at+15*60000 && !done[kNow]){ done[kNow]=1; changed=true; ring(nm, a, p); }
+  }));
+  if(changed) store.set("done", JSON.stringify(done));
+}
+function ring(name, a, p){
+  $("alarmT").textContent = "Ekhon "+name+" er sathe kotha";
+  $("alarmP").textContent = a.note || "Tomader thik kora somoy hoye geche.";
+  const pd = partners[p?.partnerUid]||{}; const sms=$("alarmSms");
+  if(pd.phone){ sms.href="sms:"+pd.phone+"?&body="+encodeURIComponent("Ami ready 💗 kotha bolbo?"); show(sms,true); } else show(sms,false);
+  show($("alarm"),true); beep(); if(navigator.vibrate) navigator.vibrate([400,200,400,200,400]);
+  notify("Ekhon "+name+" er sathe kotha bolar somoy 💗", a.note||"");
+}
+$("alarmOk").onclick = () => show($("alarm"),false);
+
+/* ---------- notifications & sound ---------- */
+function notify(title, body){
+  toast(title);
+  try{
+    if("Notification" in window && Notification.permission==="granted"){
+      if(navigator.serviceWorker && navigator.serviceWorker.controller){
+        navigator.serviceWorker.ready.then(r => r.showNotification(title,{ body, icon:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E💗%3C/text%3E%3C/svg%3E", vibrate:[200,100,200] }));
+      } else new Notification(title,{ body });
+    }
+  }catch{}
+}
+let actx;
+function beep(){
+  try{
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    [0,.35,.7].forEach(t => { const o=actx.createOscillator(), g=actx.createGain(); o.frequency.value=660+t*200; o.connect(g); g.connect(actx.destination);
+      g.gain.setValueAtTime(.0001,actx.currentTime+t); g.gain.exponentialRampToValueAtTime(.25,actx.currentTime+t+.05); g.gain.exponentialRampToValueAtTime(.0001,actx.currentTime+t+.3);
+      o.start(actx.currentTime+t); o.stop(actx.currentTime+t+.32); });
+  }catch{}
+}
+$("bellBtn").onclick = async () => {
+  if(!("Notification" in window)){ toast("Ei browser e notification nai"); return; }
+  const r = await Notification.requestPermission();
+  toast(r==="granted" ? "Notification chalu hoyeche 🔔" : "Notification bondho ache. Browser settings theke chalu koro.");
+  try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); }catch{}
+};
+
+/* ---------- tabs ---------- */
+$("bar").addEventListener("click", e => {
+  const b = e.target.closest("button"); if(!b) return;
+  [...$("bar").children].forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on",p.id===b.dataset.p));
+  if(b.dataset.p==="p-talk") renderAppts();
+});
+
+setMode("login");
+</script>
+</body>
+</html>
